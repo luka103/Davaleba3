@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 
@@ -23,25 +24,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var score1 : TextView
     private lateinit var score2 : TextView
     private var activePlayer = 1
+    private var scorePlayer1 = 0
+    private var scorePlayer2 = 0
     private var firstPlayer = ArrayList<Int>()
     private var secondPlayer = ArrayList<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
-        refreshClick()
         playAgainClick()
+        refreshClick()
     }
 
     override fun onClick(clickedView: View?) {
-        refresh = findViewById(R.id.refresh)
-        playAgain = findViewById(R.id.playAgain)
-        refresh.setOnClickListener {
-            playAgainClick()
-        }
-        playAgain.setOnClickListener {
-            refreshClick()
-        }
 
         if(clickedView is Button){
             var buttonNumber = 0
@@ -58,6 +53,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             if(buttonNumber != 0){
                 playGame(clickedView, buttonNumber)
+            }
+            if(clickedView == playAgain){
+                playAgainClick()
+            }
+            if(clickedView == refresh){
+                refreshClick()
             }
         }
 
@@ -133,22 +134,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(secondPlayer.contains(3) && secondPlayer.contains(5) && secondPlayer.contains(7)){
             winnerPlayer = 2
         }
-        if(winnerPlayer !=0 )
-
-
         if(winnerPlayer == 1){
             Toast.makeText(this, "First Player Won!", Toast.LENGTH_SHORT).show()
+            scorePlayer1 += 1
         }
         if(winnerPlayer == 2){
             Toast.makeText(this, "Second Player Won!", Toast.LENGTH_SHORT).show()
+            scorePlayer2 += 1
         }
 
 
-        if(winnerPlayer == 0 && button1.isEnabled && button2.isEnabled && button3.isEnabled && button4.isEnabled && button5.isEnabled && button6.isEnabled && button7.isEnabled && button8.isEnabled && button9.isEnabled){
+        if(winnerPlayer == 0 && button1.isEnabled == false && button2.isEnabled == false && button3.isEnabled == false && button4.isEnabled == false  && button5.isEnabled == false && button6.isEnabled == false && button7.isEnabled == false && button8.isEnabled == false && button9.isEnabled == false){
             Toast.makeText(this, "TIE!", Toast.LENGTH_SHORT).show()
         }
 
-        if(winnerPlayer != 0) {
+        if(winnerPlayer == 1) {
             button1.isEnabled = false
             button2.isEnabled = false
             button3.isEnabled = false
@@ -159,16 +159,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             button8.isEnabled = false
             button9.isEnabled = false
         }
-        var scorePlayer1 = 0
-        var scorePlayer2 = 0
         if(winnerPlayer == 1) {
-            scorePlayer1 += 1
+            button1.isEnabled = false
+            button2.isEnabled = false
+            button3.isEnabled = false
+            button4.isEnabled = false
+            button5.isEnabled = false
+            button6.isEnabled = false
+            button7.isEnabled = false
+            button8.isEnabled = false
+            button9.isEnabled = false
         }
-        if(winnerPlayer == 2) {
-            scorePlayer2 += 1
-        }
-
-        if(winnerPlayer != 0) {
+        if(winnerPlayer != 0){
             score1.text = scorePlayer1.toString()
             score2.text = scorePlayer2.toString()
         }
@@ -209,6 +211,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.text = ""
         button8.text = ""
         button9.text = ""
+
+
+
     }
 
     private fun refreshClick() {
@@ -246,9 +251,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button8.text = ""
         button9.text = ""
 
-        score1.text = "0"
-        score2.text = "0"
+        scorePlayer1 = 0
+        scorePlayer2 = 0
+
+        score1.text = scorePlayer1.toString()
+        score2.text = scorePlayer2.toString()
     }
+
+
 
 
 
@@ -263,6 +273,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7 = findViewById(R.id.button7)
         button8 = findViewById(R.id.button8)
         button9 = findViewById(R.id.button9)
+        refresh = findViewById(R.id.refresh)
+        playAgain = findViewById(R.id.playAgain)
+        score1 = findViewById(R.id.score1)
+        score2 = findViewById(R.id.score2)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -273,6 +287,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setOnClickListener(this)
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
+        refresh.setOnClickListener(this)
+        playAgain.setOnClickListener(this)
 
     }
 }
