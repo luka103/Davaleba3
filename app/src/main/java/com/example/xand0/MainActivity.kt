@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var button7 : Button
     private lateinit var button8 : Button
     private lateinit var button9 : Button
-    private lateinit var button10 : Button
-    private lateinit var button11 : Button
-    private lateinit var firstPlayerScore : TextView
-    private lateinit var secondPlayerScore : TextView
+    private lateinit var refresh : Button
+    private lateinit var playAgain : Button
+    private lateinit var score1 : TextView
+    private lateinit var score2 : TextView
     private var activePlayer = 1
     private var firstPlayer = ArrayList<Int>()
     private var secondPlayer = ArrayList<Int>()
@@ -29,18 +29,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
-        restartClick()
+        refreshClick()
         playAgainClick()
     }
 
     override fun onClick(clickedView: View?) {
-        button10 = findViewById(R.id.button10)
-        button11 = findViewById(R.id.button11)
-        button10.setOnClickListener {
+        refresh = findViewById(R.id.refresh)
+        playAgain = findViewById(R.id.playAgain)
+        refresh.setOnClickListener {
             playAgainClick()
         }
-        button11.setOnClickListener {
-            restartClick()
+        playAgain.setOnClickListener {
+            refreshClick()
         }
 
         if(clickedView is Button){
@@ -111,6 +111,171 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         if(secondPlayer.contains(1) && secondPlayer.contains(2) && secondPlayer.contains(3)){
             winnerPlayer = 2
+        }
+        if(secondPlayer.contains(4) && secondPlayer.contains(5) && secondPlayer.contains(6)){
+            winnerPlayer = 2
+        }
+        if(secondPlayer.contains(7) && secondPlayer.contains(8) && secondPlayer.contains(9)){
+            winnerPlayer = 2
+        }
+        if(secondPlayer.contains(1) && secondPlayer.contains(4) && secondPlayer.contains(7)){
+            winnerPlayer = 2
+        }
+        if(secondPlayer.contains(2) && secondPlayer.contains(5) && secondPlayer.contains(8)){
+            winnerPlayer = 2
+        }
+        if(secondPlayer.contains(3) && secondPlayer.contains(6) && secondPlayer.contains(9)){
+            winnerPlayer = 2
+        }
+        if(secondPlayer.contains(1) && secondPlayer.contains(5) && secondPlayer.contains(9)){
+            winnerPlayer = 2
+        }
+        if(secondPlayer.contains(3) && secondPlayer.contains(5) && secondPlayer.contains(7)){
+            winnerPlayer = 2
+        }
+        if(winnerPlayer !=0 )
+
+
+        if(winnerPlayer == 1){
+            Toast.makeText(this, "First Player Won!", Toast.LENGTH_SHORT).show()
+        }
+        if(winnerPlayer == 2){
+            Toast.makeText(this, "Second Player Won!", Toast.LENGTH_SHORT).show()
+        }
+
+
+        if(winnerPlayer == 0 && button1.isEnabled && button2.isEnabled && button3.isEnabled && button4.isEnabled && button5.isEnabled && button6.isEnabled && button7.isEnabled && button8.isEnabled && button9.isEnabled){
+            Toast.makeText(this, "TIE!", Toast.LENGTH_SHORT).show()
+        }
+
+        if(winnerPlayer != 0) {
+            button1.isEnabled = false
+            button2.isEnabled = false
+            button3.isEnabled = false
+            button4.isEnabled = false
+            button5.isEnabled = false
+            button6.isEnabled = false
+            button7.isEnabled = false
+            button8.isEnabled = false
+            button9.isEnabled = false
+        }
+        var scorePlayer1 = 0
+        var scorePlayer2 = 0
+        if(winnerPlayer == 1) {
+            scorePlayer1 += 1
+        }
+        if(winnerPlayer == 2) {
+            scorePlayer2 += 1
+        }
+
+        if(winnerPlayer != 0) {
+            score1.text = scorePlayer1.toString()
+            score2.text = scorePlayer2.toString()
+        }
+    }
+
+    private fun playAgainClick(){
+        activePlayer = 1
+        firstPlayer.clear()
+        secondPlayer.clear()
+        button1.isEnabled = true
+        button2.isEnabled = true
+        button3.isEnabled = true
+        button4.isEnabled = true
+        button5.isEnabled = true
+        button6.isEnabled = true
+        button7.isEnabled = true
+        button8.isEnabled = true
+        button9.isEnabled = true
+
+
+        button1.setBackgroundColor(Color.BLUE)
+        button2.setBackgroundColor(Color.BLUE)
+        button3.setBackgroundColor(Color.BLUE)
+        button4.setBackgroundColor(Color.BLUE)
+        button5.setBackgroundColor(Color.BLUE)
+        button6.setBackgroundColor(Color.BLUE)
+        button7.setBackgroundColor(Color.BLUE)
+        button8.setBackgroundColor(Color.BLUE)
+        button9.setBackgroundColor(Color.BLUE)
+
+
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
+        button5.text = ""
+        button6.text = ""
+        button7.text = ""
+        button8.text = ""
+        button9.text = ""
+    }
+
+    private fun refreshClick() {
+        activePlayer = 1
+        firstPlayer.clear()
+        secondPlayer.clear()
+
+        button1.setBackgroundColor(Color.BLUE)
+        button2.setBackgroundColor(Color.BLUE)
+        button3.setBackgroundColor(Color.BLUE)
+        button4.setBackgroundColor(Color.BLUE)
+        button5.setBackgroundColor(Color.BLUE)
+        button6.setBackgroundColor(Color.BLUE)
+        button7.setBackgroundColor(Color.BLUE)
+        button8.setBackgroundColor(Color.BLUE)
+        button9.setBackgroundColor(Color.BLUE)
+
+        button1.isEnabled = true
+        button2.isEnabled = true
+        button3.isEnabled = true
+        button4.isEnabled = true
+        button5.isEnabled = true
+        button6.isEnabled = true
+        button7.isEnabled = true
+        button8.isEnabled = true
+        button9.isEnabled = true
+
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
+        button5.text = ""
+        button6.text = ""
+        button7.text = ""
+        button8.text = ""
+        button9.text = ""
+
+        score1.text = "0"
+        score2.text = "0"
+    }
+
+
+
+
+    private fun init(){
+        button1 = findViewById(R.id.button1)
+        button2 = findViewById(R.id.button2)
+        button3 = findViewById(R.id.button3)
+        button4 = findViewById(R.id.button4)
+        button5 = findViewById(R.id.button5)
+        button6 = findViewById(R.id.button6)
+        button7 = findViewById(R.id.button7)
+        button8 = findViewById(R.id.button8)
+        button9 = findViewById(R.id.button9)
+
+        button1.setOnClickListener(this)
+        button2.setOnClickListener(this)
+        button3.setOnClickListener(this)
+        button4.setOnClickListener(this)
+        button5.setOnClickListener(this)
+        button6.setOnClickListener(this)
+        button7.setOnClickListener(this)
+        button8.setOnClickListener(this)
+        button9.setOnClickListener(this)
+
+    }
+}
         }
         if(secondPlayer.contains(4) && secondPlayer.contains(5) && secondPlayer.contains(6)){
             winnerPlayer = 2
